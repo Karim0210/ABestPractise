@@ -101,6 +101,7 @@ public class PrendreRendezVous {
                 {
                     srv.AjoutRendezVous(r);
                     srv.EnvoyerSmsRendezVous(p,t1.getText(),r.getDateRendezVous(),r.getHeure());
+                    srv.EnvoyerMailRendezVous(p,t1.getText(),r.getDateRendezVous(),r.getHeure());
                     /*Message m = new Message("rendez vous");
                     sendMessage(new String[] {"abdelkarim.turki@gmail.com"},"hello", m);*/
                    

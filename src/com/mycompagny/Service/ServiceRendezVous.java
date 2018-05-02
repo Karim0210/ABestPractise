@@ -68,6 +68,23 @@ public class ServiceRendezVous {
         NetworkManager.getInstance().addToQueueAndWait(con);
        
     }
+      
+      public void EnvoyerMailRendezVous(Pediatre p,String num,String date,String heure) 
+    
+    {
+        
+        ConnectionRequest con = new ConnectionRequest();
+        con.setUrl("http://localhost/projetPI3/web/app_dev.php/mailing?num="+num+"&nomPediatre="+p.getNom()+"&date="+date+"&heure="+heure);
+
+        con.addResponseListener(new ActionListener<NetworkEvent>() {
+            @Override
+            public void actionPerformed(NetworkEvent evt) {
+                System.out.println("mail envoyé");
+            }
+        });
+        NetworkManager.getInstance().addToQueueAndWait(con);
+       
+    }  
      
      public int VerifRendezVous(int idPediatre,Picker DateRendezVous) 
     
