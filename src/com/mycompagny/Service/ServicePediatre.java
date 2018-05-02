@@ -269,7 +269,7 @@ public class ServicePediatre {
      public void UpdateLikes(Pediatre p)
     {
         ConnectionRequest con = new ConnectionRequest();
-        con.setUrl("http://localhost/mobile/AjouterLikes.php?id="+p.getId()+"&likes="+p.getLikes());
+        con.setUrl("http://localhost/mobile/UpdateLikes.php?id="+p.getId()+"&likes="+p.getLikes());
 
         con.addResponseListener(new ActionListener<NetworkEvent>() {
             @Override

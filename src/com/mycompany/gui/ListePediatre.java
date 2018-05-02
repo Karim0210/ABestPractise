@@ -82,13 +82,13 @@ public class ListePediatre {
                
                        
                
-               Label l2=new Label("Specialite"+ p.getSpecialite());
-
+               Label l2=new Label("Specialite : "+ p.getSpecialite());
+               l2.setUIID("font");
              //  l1.getStyle().set(0xC40C0C);
              
                c1.add(iv);
                c1.add(c3);
-               c3.add(new SpanLabel("Nom"+ p.getNom()));
+               c3.add(new SpanLabel("Nom : "+ p.getNom()));
                c3.add(s);
                c3.add(l2);
                c3.add(b);

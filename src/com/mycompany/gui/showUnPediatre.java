@@ -12,6 +12,7 @@ import com.codename1.ui.Container;
 import com.codename1.ui.Form;
 import com.codename1.ui.Image;
 import com.codename1.ui.Label;
+import com.codename1.ui.Toolbar;
 import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.plaf.Border;
 import com.mycompagny.Service.ServicePediatre;
@@ -19,6 +20,7 @@ import com.mycompany.Entite.Pediatre;
 import com.mycompany.Entite.User;
 import java.io.IOException;
 import java.util.ArrayList;
+import javafx.scene.control.ToolBar;
 
 /**
  *
@@ -29,7 +31,14 @@ public class showUnPediatre {
     User userinfo = User.getInstance();
 
     public showUnPediatre(int id) throws IOException  {
-        f=new Form("");
+        f=new Form("Profil Pediatre",BoxLayout.y());
+        Toolbar tool = new Toolbar();
+        tool=f.getToolbar();
+        tool.addCommandToLeftBar("Back", null,e->{ 
+                     ListePediatre h = new ListePediatre();
+                     h.getF().show();
+                           } );
+        
         
         //*******************************Recuperer le produit selectionné*************************************************
         
@@ -40,10 +49,11 @@ public class showUnPediatre {
    
          Container c1=new Container(BoxLayout.x());
          Container c2=new Container(BoxLayout.y());
+         Container c4=new Container(BoxLayout.x());
          Container c3=new Container();
          
          c1.getStyle().setMargin(10, 0, 60, 0);
-         c2.getStyle().setBorder(Border.createLineBorder(2));
+         //c2.getStyle().setBorder(Border.createLineBorder(2));
          
 
          
@@ -69,6 +79,12 @@ public class showUnPediatre {
              }
         
        
+       Label l5=new Label("Vues : "+p.getVues());
+       l5.setUIID("font");
+       Label l6=new Label("Likes : "+p.getLikes());
+       l6.setUIID("font");
+       Label l7=new Label("Rating : "+p.getRating());
+       l7.setUIID("font");
 
          
         //*********************************Action sur le bouton*************************************************************
@@ -80,6 +96,9 @@ public class showUnPediatre {
         c2.add(l4);
         c3.add(b);
         c3.add(b1);
+        c4.add(l5);
+        c4.add(l6);
+        c4.add(l7);        
  
 
          b.addActionListener(e->{ 
@@ -95,13 +114,17 @@ public class showUnPediatre {
          b1.addActionListener(e->{ 
              
              if(sc1.VerfierLikes(p, userinfo)==0)
-             {
+             {  
                sc1.AjouterLikes(p, userinfo);
+               p.setLikes(p.getLikes()+1);
+               sc1.UpdateLikes(p); 
                b1.setText("je n'aime pas");
              }
              else
              {
                  sc1.RemoveLikes(p, userinfo);
+                 p.setLikes(p.getLikes()-1);
+                 sc1.UpdateLikes(p);
                  b1.setText("j'aime");
              }
              
@@ -112,6 +135,7 @@ public class showUnPediatre {
          
          f.add(c1);
          f.add(c2);
+         f.add(c4);
          f.add(c3);
         
     

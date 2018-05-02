@@ -16,6 +16,7 @@ import com.codename1.ui.Form;
 import com.codename1.ui.Image;
 import com.codename1.ui.Label;
 import com.codename1.ui.Slider;
+import com.codename1.ui.Toolbar;
 import com.codename1.ui.geom.Dimension;
 import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.plaf.Border;
@@ -36,7 +37,12 @@ public class ListePediatreTrier {
      User userinfo = User.getInstance();
     public ListePediatreTrier()  {
         f=new Form("Liste Des Pediatre",BoxLayout.y());
-     
+        Toolbar tool = new Toolbar();
+        tool=f.getToolbar();
+        tool.addCommandToLeftBar("Back", null,e->{ 
+                     ListePediatre h = new ListePediatre();
+                     h.getF().show();
+                           } );
            
          
         //*******************Recuperer la liste de produit de la base***************************************************
@@ -76,13 +82,13 @@ public class ListePediatreTrier {
                
                        
                
-               Label l2=new Label("Specialite"+ p.getSpecialite());
-
+               Label l2=new Label("Specialite : "+ p.getSpecialite());
+               l2.setUIID("font");
              //  l1.getStyle().set(0xC40C0C);
              
                c1.add(iv);
                c1.add(c3);
-               c3.add(new SpanLabel("Nom"+ p.getNom()));
+               c3.add(new SpanLabel("Nom : "+ p.getNom()));
                c3.add(s);
                c3.add(l2);
                c3.add(b);

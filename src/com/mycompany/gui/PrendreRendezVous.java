@@ -19,6 +19,7 @@ import com.codename1.ui.Display;
 import com.codename1.ui.Form;
 import com.codename1.ui.Image;
 import com.codename1.ui.TextField;
+import com.codename1.ui.Toolbar;
 import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.plaf.Border;
 import com.codename1.ui.spinner.DateTimeSpinner;
@@ -32,6 +33,7 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.Calendar;
 
+
 /**
  *
  * @author Karim
@@ -42,13 +44,24 @@ public class PrendreRendezVous {
 
     public PrendreRendezVous(int id) throws IOException {
         f = new Form("");
-
+        
         //*******************************Recuperer le produit selectionné*************************************************
         ServicePediatre sc1 = new ServicePediatre();
         Pediatre p = sc1.showPediatre(id);
         RendezVous r = new RendezVous();
           User userinfo = User.getInstance();
-
+        Toolbar tool = new Toolbar();
+        tool=f.getToolbar();
+        tool.addCommandToLeftBar("Back", null,e->{ 
+                     showUnPediatre sc;
+            try {
+                sc = new showUnPediatre(p.getId());
+                sc.getF().show();
+            } catch (IOException ex) {
+                
+            }
+                     
+                           } );
         Container c1 = new Container(BoxLayout.y());
         Container c2 = new Container(BoxLayout.x());
 
@@ -62,22 +75,29 @@ public class PrendreRendezVous {
 
         Button b = new Button("prendre rendez-vous");
 
-          c1.add(l);
-         c1.add(l2);
-         c1.add(t1);
+        c1.add(l);
+        c1.add(l2);
+        c1.add(t1);
         c2.add(l3);
         c2.add(date);
 
         //*********************************Action sur le bouton*************************************************************
-        b.addActionListener(e -> {
+       
+        
+            b.addActionListener(e -> {
 
             
-
-       
-        Calendar cal = Calendar.getInstance(); // creates calendar
+        if((t1.getText().length()!=8)||(t1.getText().length()==0))
+        {
+            Dialog.show("champs vide", "entrer numero", "ok", "cancel");
+        }
+        else
+        {
+             Calendar cal = Calendar.getInstance(); // creates calendar
         cal.setTime(date.getDate()); // sets calendar time/date
         cal.add(Calendar.HOUR, 1);
-           
+        
+         
          if (Dialog.show("Confirmation", "date : " + new SimpleDateFormat("yyyy-MM-dd").format(date.getDate()) + " time : " + new SimpleDateFormat("hh:mm:s").format(date.getDate()), "ok", "cancel")) {
                 r.setIdUser(userinfo.getId());
                 r.setIdPediatre(p.getId());
@@ -106,17 +126,19 @@ public class PrendreRendezVous {
                     sendMessage(new String[] {"abdelkarim.turki@gmail.com"},"hello", m);*/
                    
                     
-                }
-
-                   
-               
+                }     
          } 
-         else 
-         {
-
-         }
+        }
+        
+       
+       
+         
+        
 
         });
+        
+        
+        
 
         f.add(c1);
         f.add(c2);
